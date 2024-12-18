@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitarbeiterbewertung der Krones Service Europe GmbH</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2 { color: #333; }
+        form { display: grid; gap: 20px; }
+        fieldset { border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
+        legend { font-weight: bold; color: #444; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], select, textarea { width: 100%; padding: 5px; margin-bottom: 10px; }
+        .total { font-weight: bold; margin-top: 20px; }
+        button { padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; margin-right: 10px; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Mitarbeiterbewertung der Krones Service Europe GmbH</h1>
+    <form id="auditForm">
+        <fieldset>
+            <legend>Mitarbeiterinformationen</legend>
+            <label for="employeeName">Name des Mitarbeiters:</label>
+            <input type="text" id="employeeName" name="employeeName" required>
+
+            <label for="workLocation">Arbeitsort:</label>
+            <input type="text" id="workLocation" name="workLocation" required>
+
+            <label for="jobRole">Tätigkeit:</label>
+            <input type="text" id="jobRole" name="jobRole" required>
+
+            <label for="specificTask">Spezifische Aufgabe:</label>
+            <input type="text" id="specificTask" name="specificTask" placeholder="z.B. Neuaufstellung, Überholung, Retrofit" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>1. Fachliche Fähigkeiten (Max. 20 Punkte)</legend>
+            <label for="fachlicheKompetenz">Fachliche Kompetenz (10 Punkte):</label>
+            <select id="fachlicheKompetenz" name="fachlicheKompetenz">
+                <option value="10">Exzellent (10 Punkte): Beherrscht alle relevanten Technologien und Problemlösungen</option>
+                <option value="8">Gut (8 Punkte): Gute technische Fähigkeiten, geringe Unterstützung erforderlich</option>
+                <option value="6">Befriedigend (6 Punkte): Durchschnittliche technische Fähigkeiten, gelegentlich Unterstützung erforderlich</option>
+                <option value="4">Ausreichend (4 Punkte): Grundlegende Fähigkeiten, häufig Unterstützung erforderlich</option>
+                <option value="2">Unzureichend (2 Punkte): Fachliche Defizite, regelmäßige Unterstützung erforderlich</option>
+            </select>
+
+            <label for="zuverlaessigkeit">Zuverlässigkeit (10 Punkte):</label>
+            <select id="zuverlaessigkeit" name="zuverlaessigkeit">
+                <option value="10">Exzellent (10 Punkte): Immer pünktlich, hält alle Termine ein</option>
+                <option value="8">Gut (8 Punkte): Meist pünktlich, kleine Verspätungen</option>
+                <option value="4">Befriedigend (4 Punkte): Gelegentliche Verspätungen, häufige Terminänderungen</option>
+                <option value="2">Ausreichend (2 Punkte): Unzuverlässig, oft nicht erreichbar</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>2. Arbeitsqualität (Max. 20 Punkte)</legend>
+            <label for="qualitaetAusfuehrung">Qualität der Ausführung (10 Punkte):</label>
+            <select id="qualitaetAusfuehrung" name="qualitaetAusfuehrung">
+                <option value="10">Exzellent (10 Punkte): Hohe Präzision, keine Nacharbeit erforderlich</option>
+                <option value="8">Gut (8 Punkte): Gute Ausführung, minimale Nacharbeit erforderlich</option>
+                <option value="6">Befriedigend (6 Punkte): Durchschnittliche Ausführung, gelegentliche Nacharbeit erforderlich</option>
+                <option value="4">Ausreichend (4 Punkte): Häufige Nacharbeit erforderlich</option>
+                <option value="2">Unzureichend (2 Punkte): Hohe Fehlerquote, häufige Nacharbeit erforderlich</option>
+            </select>
+
+            <label for="dokumentation">Dokumentation und Berichtswesen (10 Punkte):</label>
+            <select id="dokumentation" name="dokumentation">
+                <option value="10">Exzellent (10 Punkte): Vollständige, präzise und zeitnahe Dokumentation</option>
+                <option value="8">Gut (8 Punkte): Gute Dokumentation, geringe Nachbesserungen erforderlich</option>
+                <option value="6">Befriedigend (6 Punkte): Durchschnittliche Dokumentation, gelegentliche Unvollständigkeiten</option>
+                <option value="4">Ausreichend (4 Punkte): Unvollständige Dokumentation, regelmäßige Nachbesserungen erforderlich</option>
+                <option value="2">Unzureichend (2 Punkte): Unvollständige oder fehlerhafte Dokumentation</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>3. Teamarbeit und Kommunikation (Max. 35 Punkte)</legend>
+            <label for="zusammenarbeit">Zusammenarbeit im Team (15 Punkte):</label>
+            <select id="zusammenarbeit" name="zusammenarbeit">
+                <option value="15">Exzellent (15 Punkte): Hervorragende Zusammenarbeit und Unterstützung für Kollegen</option>
+                <option value="10">Gut (10 Punkte): Gute Zusammenarbeit, gelegentliche Unterstützung erforderlich</option>
+                <option value="6">Befriedigend (6 Punkte): Durchschnittliche Zusammenarbeit, gelegentliche Konflikte</option>
+                <option value="4">Ausreichend (4 Punkte): Häufige Schwierigkeiten bei der Zusammenarbeit</option>
+                <option value="2">Unzureichend (2 Punkte): Schwierigkeiten bei der Teamarbeit, wenig Unterstützung</option>
+            </select>
+
+            <label for="kommunikation">Kommunikationsfähigkeiten (10 Punkte):</label>
+            <select id="kommunikation" name="kommunikation">
+                <option value="10">Exzellent (10 Punkte): Klare, präzise und effektive Kommunikation</option>
+                <option value="8">Gut (8 Punkte): Gute Kommunikation, geringe Missverständnisse</option>
+                <option value="6">Befriedigend (6 Punkte): Durchschnittliche Kommunikation, gelegentliche Missverständnisse</option>
+                <option value="4">Ausreichend (4 Punkte): Häufige Missverständnisse, Verbesserung erforderlich</option>
+                <option value="2">Unzureichend (2 Punkte): Unklare Kommunikation, häufige Missverständnisse</option>
+            </select>
+
+            <label for="konfliktmanagement">Konfliktmanagement (10 Punkte):</label>
+            <select id="konfliktmanagement" name="konfliktmanagement">
+                <option value="10">Exzellent (10 Punkte): Sehr guter Umgang mit Konflikten, konstruktive Lösungen</option>
+                <option value="8">Gut (8 Punkte): Guter Umgang mit Konflikten, Lösungen und Deeskalationen</option>
+                <option value="6">Befriedigend (6 Punkte): Frühzeitige Wahrnehmung von Konflikten, aktives Gegensteuern</option>
+                <option value="4">Ausreichend (4 Punkte): Durchschnittlicher Umgang, Konflikte werden hin und wieder gelöst</option>
+                <option value="2">Unzureichend (2 Punkte): Schlechter Umgang, Eskalationen werden häufig nicht vermieden</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>4. Eigenverantwortung und Initiative (Max. 25 Punkte)</legend>
+            <label for="selbststaendigkeit">Selbstständigkeit und Problemlösungsfähigkeiten (10 Punkte):</label>
+            <select id="selbststaendigkeit" name="selbststaendigkeit">
+                <option value="10">Exzellent (10 Punkte): Hohe Selbstständigkeit, proaktive Problemlösung</option>
+                <option value="8">Gut (8 Punkte): Gute Selbstständigkeit, schnelle Problemlösung</option>
+                <option value="6">Befriedigend (6 Punkte): Durchschnittliche Selbstständigkeit, gelegentliche Unterstützung erforderlich</option>
+                <option value="4">Ausreichend (4 Punkte): Häufige Unterstützung erforderlich, geringe Initiative</option>
+                <option value="2">Unzureichend (2 Punkte): Geringe Selbstständigkeit, wenig Initiative</option>
+            </select>
+
+            <label for="vorschriften">Einhalten von Vorschriften und Richtlinien (15 Punkte):</label>
+            <select id="vorschriften" name="vorschriften">
+                <option value="15">Exzellent (15 Punkte): Strikte Einhaltung aller Vorschriften und Richtlinien</option>
+                <option value="10">Gut (10 Punkte): Geringfügige Abweichungen, insgesamt gute Einhaltung</option>
+                <option value="6">Befriedigend (6 Punkte): Durchschnittliche Einhaltung, gelegentliche Verstöße</option>
+                <option value="4">Ausreichend (4 Punkte): Häufige Verstöße gegen Vorschriften</option>
+                <option value="2">Unzureichend (2 Punkte): Regelmäßige Verstöße, erheblicher Verbesserungsbedarf</option>
+            </select>
+        </fieldset>
+
+        <div class="total">
+            Gesamtpunktzahl: <span id="totalScore">0</span> / 100
+        </div>
+
+        <fieldset>
+            <legend>Kommentar</legend>
+            <label for="comment">Zusätzliche Bemerkungen oder Empfehlungen:</label>
+            <textarea id="comment" name="comment" rows="4"></textarea>
+        </fieldset>
+
+        <button type="submit">Fragebogen einreichen</button>
+    </form>
+    
+    <div id="actions" style="display: none; margin-top: 20px;">
+        <button onclick="exportHTML()">Als HTML exportieren</button>
+        <button onclick="savePDF()">Als PDF speichern</button>
+        <button onclick="sendEmail()">Per E-Mail versenden</button>
+    </div>
+
+    <script>
+        const form = document.getElementById('auditForm');
+        const totalScoreElement = document.getElementById('totalScore');
+
+        form.addEventListener('change', calculateTotal);
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('actions').style.display = 'block';
+        });
+
+        function calculateTotal() {
+            const total = Array.from(form.elements)
+                .filter(element => element.tagName === 'SELECT')
+                .reduce((sum, select) => sum + parseInt(select.value), 0);
+            totalScoreElement.textContent = total;
+        }
+
+        function getFormData() {
+            const formData = new FormData(form);
+            let data = {
+                totalScore: totalScoreElement.textContent
+            };
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            return data;
+        }
+
+        function exportHTML() {
+            const data = getFormData();
+            let htmlContent = '<h1>Mitarbeiterbewertung KSE</h1>';
+            for (let [key, value] of Object.entries(data)) {
+                htmlContent += `<p><strong>${key}:</strong> ${value}</p>`;
+            }
+            
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'mitarbeiterbewertung-kse.html';
+            a.click();
+        }
+
+        function savePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const data = getFormData();
+            doc.text('Mitarbeiterbewertung KSE', 10, 10);
+            let yPos = 20;
+            for (let [key, value] of Object.entries(data)) {
+                doc.text(`${key}: ${value}`, 10, yPos);
+                yPos += 10;
+                if (yPos > 280) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+            }
+            
+            doc.save('mitarbeiterbewertung-kse.pdf');
+        }
+
+        function sendEmail() {
+            const data = getFormData();
+            const subject = 'Mitarbeiterbewertung KSE';
+            let body = '';
+            for (let [key, value] of Object.entries(data)) {
+                body += `${key}: ${value}%0D%0A`;
+            }
+            
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+    </script>
+</body>
+</html>
+
